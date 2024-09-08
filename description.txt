@@ -1,0 +1,19 @@
+// Этот метод отвечает за считывание текущей яркости монитора через DDC/CI.
+// Параметры: deviceInstanceId - уникальный идентификатор монитора, предоставленный ОС.
+public int GetBrightness(string deviceInstanceId)
+{
+    // Здесь отправляется запрос на монитор, чтобы получить информацию о текущей яркости.
+    // Если монитор поддерживает DDC/CI и корректно отвечает, возвращается значение яркости (0-100%).
+    // Если монитор не поддерживает DDC/CI, возвращается -1 как индикатор ошибки.
+    int brightness = SendDdcciCommand(deviceInstanceId, "GetBrightness");
+    return brightness;
+}
+
+// Этот метод используется для установки новой яркости монитора через DDC/CI.
+// Параметры: deviceInstanceId - уникальный идентификатор монитора, brightness - новое значение яркости (0-100%).
+public void SetBrightness(string deviceInstanceId, int brightness)
+{
+    // Отправляем команду на монитор с новым значением яркости.
+    // Значение может быть абсолютным (например, 50) или относительным (например, +10, -10).
+    SendDdcciCommand(deviceInstanceId, "SetBrightness", brightness);
+}
